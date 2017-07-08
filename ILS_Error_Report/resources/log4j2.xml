@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="log-path">logs</Property>
+    </Properties>
+    <Appenders>
+        <Console name="consoleLog" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%t] %class %L %M - %msg%n"/>
+        </Console>
+        <Console name="showFile" target="SYSTEM_OUT">
+            <PatternLayout pattern="%msg"/>
+        </Console>
+        <File name="logFile" fileName="target/${log-path}/app.log" append="false">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%t] %class %L - %msg%n</pattern>
+            </PatternLayout>
+        </File>
+<!--         <JDBC name="databaseAppender" tableName="log"> -->
+<!--         	<ConnectionFactory class="org.centerlight.dischargingReport.AccessDBLogConnection" method="getDatabaseConnection" /> -->
+<!--         	<Column name="Event" pattern="%L" /> -->
+<!--         </JDBC> -->
+    </Appenders>
+    <Loggers>
+        <logger name="org.centerlight.ILS.fileIO" level="debug" additivity="false">
+        	<appender-ref ref="showFile" level="trace"/>
+        </logger>
+        <logger name="org.centerlight.ILS" level="trace">
+        	<appender-ref ref="logFile" level="trace"/>
+<!--         	<appender-ref ref="databaseAppender" level="trace" /> -->
+        </logger>
+        <root level="debug">
+            <AppenderRef ref="consoleLog" level = "trace" />
+        </root>
+    </Loggers>
+</Configuration>
